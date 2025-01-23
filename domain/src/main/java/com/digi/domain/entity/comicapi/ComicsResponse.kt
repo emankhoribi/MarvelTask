@@ -1,11 +1,11 @@
-package com.digi.domain.entity
+package com.digi.domain.entity.comicapi
 
-data class CharactersResponse(
+data class ComicsResponse(
     val attributionHTML: String,
     val attributionText: String,
     val code: Int,
     val copyright: String,
-    val `data`: Data,
+    val `data`: ComicData,
     val etag: String,
     val status: String
 )

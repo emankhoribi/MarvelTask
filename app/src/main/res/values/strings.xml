@@ -2,4 +2,8 @@
     <string name="app_name">MarvelTask</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Search</string>
+    <string name="title">Title</string>
+    <string name="desc">Description</string>
+    <string name="comics">Comics</string>
 </resources>
