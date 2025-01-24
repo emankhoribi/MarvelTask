@@ -10,16 +10,26 @@ data class Result(
     val id: Int,
     val modified: String,
     val name: String,
+    val series: Series?,
+    val stories: Stories?,
+    val events: Events?,
     val resourceURI: String,
+    val urls: List<Url>,
     val thumbnail: Thumbnail?
 ): Parcelable {
+
+
     constructor(parcel: Parcel) : this(
         parcel.readParcelable(Comics::class.java.classLoader),
         parcel.readString().toString(),
         parcel.readInt(),
         parcel.readString().toString(),
         parcel.readString().toString(),
+        parcel.readParcelable(Series::class.java.classLoader),
+        parcel.readParcelable(Stories::class.java.classLoader),
+        parcel.readParcelable(Events::class.java.classLoader),
         parcel.readString().toString(),
+        parcel.createTypedArrayList(Url)!!,
         parcel.readParcelable(Thumbnail::class.java.classLoader)
     ) {
     }

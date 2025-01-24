@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
@@ -26,7 +27,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment(), CharactersAdapter.RecyclerViewEvent {
@@ -35,14 +38,7 @@ class CharactersFragment : Fragment(), CharactersAdapter.RecyclerViewEvent {
     private lateinit var binding: FragmentCharactersBinding
     private var charactersAdapter = CharactersAdapter(this)
 
-    //    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        val animation = TransitionInflater.from(requireContext()).inflateTransition(
-//            android.R.transition.move
-//        )
-//        sharedElementEnterTransition = animation
-//        sharedElementReturnTransition = animation
-//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,16 +77,38 @@ class CharactersFragment : Fragment(), CharactersAdapter.RecyclerViewEvent {
             getSearchedCharacters(text.toString())
         }
 
-    }
-
-    private fun getCharacters() {
         lifecycleScope.launch {
-            viewModel.getCharacterList().collect {
-                charactersAdapter.submitData(it)
+
+            charactersAdapter.loadStateFlow.
+            distinctUntilChangedBy {
+                it.refresh
+            }.collect {
+                if( it.refresh is LoadState.Loading){
+                    binding.progressBar.visibility = View.VISIBLE
+                }else{
+                    binding.progressBar.visibility = View.GONE
+                    if (it.refresh is LoadState.Error){
+                        Toast.makeText(requireContext(), (it.refresh as LoadState.Error).error.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+
+
 
 
             }
         }
+    }
+
+    private fun getCharacters() {
+        lifecycleScope.launch {
+            viewModel.getCharacterList().collectLatest {
+                charactersAdapter.submitData(it)
+
+            }
+        }
+
+
     }
 
     private fun getSearchedCharacters(nameStartsWith: String) {

@@ -2,6 +2,7 @@ package com.digi.domain.entity.comicapi
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.digi.domain.entity.Url
 
 data class ComicResult(
     val description: String,
@@ -19,8 +20,11 @@ data class ComicResult(
     val thumbnail: Thumbnail?,
     val title: String,
     val upc: String,
+    val urls: List<Url>,
     val variantDescription: String
 ): Parcelable {
+
+
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),
@@ -37,7 +41,9 @@ data class ComicResult(
         parcel.readParcelable(Thumbnail::class.java.classLoader),
         parcel.readString().toString(),
         parcel.readString().toString(),
+        parcel.createTypedArrayList(Url)!!,
         parcel.readString().toString()
+
     ) {
     }
 
