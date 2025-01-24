@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.digi.domain.entity.Result
+import com.digi.marveltask.R
 import com.digi.marveltask.databinding.ItemCharacterBinding
 import com.squareup.picasso.Picasso
 
@@ -34,7 +35,8 @@ class CharactersAdapter(private val listener: RecyclerViewEvent) :
         fun bind(character: Result) {
             val image = character.thumbnail?.path.plus(".").plus(character.thumbnail?.extension)
             Log.e("Image ", image)
-            Picasso.get().load(image.replace("http", "https")).fit().into(itemBinding.characterIv)
+            Picasso.get().load(image.replace("http", "https"))
+                .placeholder(R.drawable.marvel_logo).fit().centerCrop().into(itemBinding.characterIv)
             itemBinding.titleTv.text = character.name
         }
 

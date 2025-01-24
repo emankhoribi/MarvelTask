@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.digi.domain.entity.comicapi.ComicResult
+import com.digi.marveltask.R
 import com.digi.marveltask.databinding.ItemComicBinding
 import com.squareup.picasso.Picasso
 
@@ -21,6 +22,7 @@ class ComicsAdapter(private val listener: RecyclerViewEvent) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
+
     }
 
 
@@ -28,8 +30,8 @@ class ComicsAdapter(private val listener: RecyclerViewEvent) :
         RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
         fun bind(comic: ComicResult) {
-            val image = (comic.thumbnail.path.plus(".").plus(comic.thumbnail.extension)).replace("http", "https")
-            Picasso.get().load(image).fit().into(itemBinding.comicIv)
+            val image = (comic.thumbnail?.path.plus(".").plus(comic.thumbnail?.extension)).replace("http", "https")
+            Picasso.get().load(image).fit().placeholder(R.drawable.ic_placeholder).into(itemBinding.comicIv)
         }
 
         init {
@@ -37,9 +39,9 @@ class ComicsAdapter(private val listener: RecyclerViewEvent) :
         }
 
         override fun onClick(p0: View?) {
-            val position = adapterPosition
+            val position = absoluteAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(getItem(position))
+                listener.onItemClick(currentList, position)
             }
         }
 
@@ -63,6 +65,6 @@ class ComicsAdapter(private val listener: RecyclerViewEvent) :
     }
 
     interface RecyclerViewEvent {
-        fun onItemClick(comic: ComicResult)
+        fun onItemClick(comicList: MutableList<ComicResult>, position: Int)
     }
 }

@@ -6,4 +6,11 @@
     <string name="title">Title</string>
     <string name="desc">Description</string>
     <string name="comics">Comics</string>
+    <string name="series">Series</string>
+    <string name="stories">Stories</string>
+    <string name="events">Events</string>
+    <string name="related_links">Related Links</string>
+    <string name="detail">Detail</string>
+    <string name="wiki">Wiki</string>
+    <string name="comic_link">Comiclink</string>
 </resources>

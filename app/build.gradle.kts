@@ -71,6 +71,10 @@ dependencies {
     implementation (libs.converter.gson)
     implementation (libs.logging.interceptor)
 
+
+    //GLide
+    implementation (libs.glide)
+
     //Picasso
     implementation (libs.picasso)
 
@@ -78,6 +82,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 
     implementation (project (":data"))
     implementation (project (":domain"))

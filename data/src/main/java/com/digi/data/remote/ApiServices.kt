@@ -33,4 +33,28 @@ interface ApiServices {
         @Query("ts") timeStamp: String,
         @Query("hash") hash: String
     ): ComicsResponse
+
+    @GET("characters/{id}/series")
+    suspend fun getCharacterSeries(
+        @Path("id") id: Int,
+        @Query("apikey") apiKey: String,
+        @Query("ts") timeStamp: String,
+        @Query("hash") hash: String
+    ): ComicsResponse
+
+    @GET("characters/{id}/events")
+    suspend fun getCharacterEvents(
+        @Path("id") id: Int,
+        @Query("apikey") apiKey: String,
+        @Query("ts") timeStamp: String,
+        @Query("hash") hash: String
+    ): ComicsResponse
+
+    @GET("characters/{id}/stories")
+    suspend fun getCharacterStories(
+        @Path("id") id: Int,
+        @Query("apikey") apiKey: String,
+        @Query("ts") timeStamp: String,
+        @Query("hash") hash: String
+    ): ComicsResponse
 }

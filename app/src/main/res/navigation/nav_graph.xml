@@ -13,6 +13,8 @@
         <action
             android:id="@+id/action_splashFragment_to_charactersFragment"
             app:destination="@id/charactersFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_left"
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
@@ -23,7 +25,11 @@
         tools:layout="@layout/fragment_characters" >
         <action
             android:id="@+id/action_charactersFragment_to_characterDetailsFragment"
-            app:destination="@id/characterDetailsFragment" />
+            app:destination="@id/characterDetailsFragment"
+            app:enterAnim="@anim/anim_slide_in_left"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_right"
+            app:popExitAnim="@anim/anim_slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/characterDetailsFragment"
@@ -33,5 +39,20 @@
         <argument
             android:name="characterDetails"
             app:argType="com.digi.domain.entity.Result" />
+        <action
+            android:id="@+id/action_characterDetailsFragment_to_imageSliderBottomSheetFragment"
+            app:destination="@id/imageSliderBottomSheetFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/imageSliderBottomSheetFragment"
+        android:name="com.digi.marveltask.fragment.slider.ImageSliderBottomSheetFragment"
+        android:label="fragment_image_slider_bottom_sheet"
+        tools:layout="@layout/fragment_image_slider_bottom_sheet" >
+        <argument
+            android:name="images"
+            app:argType="com.digi.domain.entity.comicapi.Thumbnail[]" />
+        <argument
+            android:name="index"
+            app:argType="integer" />
+    </dialog>
 </navigation>

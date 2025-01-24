@@ -2,10 +2,9 @@ package com.digi.marveltask.di.module
 
 import com.digi.data.remote.ApiServices
 import com.digi.data.repository.CharactersRepoImpl
-import com.digi.data.repository.ComicsRepoImpl
+import com.digi.data.repository.CharacterDetailsRepoImpl
 import com.digi.domain.repository.CharactersRepo
-import com.digi.domain.repository.ComicsRepo
-import com.digi.domain.usecase.CharactersUseCase
+import com.digi.domain.repository.CharacterDetailsRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,8 +20,8 @@ class RepositoryModule {
         CharactersRepoImpl(apiServices)
 
     @Provides
-    fun provideComicsRepo(apiServices: ApiServices): ComicsRepo =
-        ComicsRepoImpl(apiServices)
+    fun provideCharacterDetailsRepo(apiServices: ApiServices): CharacterDetailsRepo =
+        CharacterDetailsRepoImpl(apiServices)
 
 
 
